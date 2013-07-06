@@ -347,8 +347,15 @@ def frame_slide():
     parts.name="Frame Slide"
     # Wall peice
     parts.name="Frame Slide - wall connector"
-    f = f + up(top_platform_height/2.0)( timber(slide_platform_width,  3) )
     f = f + up(top_platform_height/2.0)(forward(timber_width)(timber(alcove_length - timber_width,  1) ))
+    slide_cross_beam = slide_platform_width+top_platform_height/2-timber_thickness+mdf_thickness
+    support_height = top_platform_height/2 + timber_thickness + timber_width
+    f = f + up(top_platform_height/2.0)( timber(slide_cross_beam,  3) )
+    f = f + right(chim_depth)(forward(alcove_length-timber_width-timber_width)(up(top_platform_height/2.0)( timber(slide_cross_beam-chim_depth,  3) )))
+    parts.name="Frame Slide - wall connector, slide 45"
+    f = f + forward(timber_width)(right(slide_cross_beam-timber_width)(timber_angle_cut(support_height, 45, 2)))
+    f = f + forward(alcove_length-timber_width-timber_width-timber_thickness)(right(slide_cross_beam-timber_width)(timber_angle_cut(support_height, 45, 2)))
+    f = f + forward(timber_width+timber_thickness)(right(slide_cross_beam-timber_width)(timber(alcove_length-timber_width-timber_width*2-timber_thickness*2,1)))
     parts.name="Frame Slide - squares"
     f = f + right(timber_width)(forward(timber_width)(timber_square(alcove_length-timber_width-timber_width, slide_platform_width-timber_width, 1) ))
     f = f + up(top_platform_height-timber_thickness)(right(timber_width)(forward(timber_width)(timber_square(alcove_length-timber_width-timber_width, slide_platform_width-timber_width, 1) )))
