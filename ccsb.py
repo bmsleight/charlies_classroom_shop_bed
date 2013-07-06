@@ -55,8 +55,8 @@ top_platform_width=matress_width + matress_thickness + (2*timber_thickness)
 
 #slide http://www.activegarden.co.uk/wmsimages/40779Slides.jpg
 
-#slide_width = alcove_length
-slide_width = 650
+slide_width = alcove_length
+#slide_width = 650
 
 
 #slide_platform_width = 900 #top_platform_width - 
@@ -72,7 +72,7 @@ room_door = 840
 
 
 #To Have Marks 
-MARK = True
+MARK = False
 
 class Parts(object):
     def __init__(self):
@@ -127,6 +127,31 @@ def timber(timber_length, direction=1):
 def mdf_sheet(timber_length, timber_width, direction=1, timber_thickness=mdf_thickness):
     return wood(timber_width, timber_thickness, timber_length, direction)
 
+def timber_angle_cut(timber_length, angle, direction=1):
+    t = wood(timber_width, timber_thickness, timber_length, direction)
+#    c = cube([timber_thickness, timber_thickness, timber_thickness])
+    c = cube([99, 99, 99])
+
+    if direction == 1:
+        c = rotate([0, 0, angle])(c)
+        c = translate([0,timber_length, 0])(c)
+    elif direction == 2:
+        c = rotate([0, angle, 0])(c)
+        c = translate([0,0,timber_length])(c)
+    elif direction == 3:
+        c = rotate([0, 0, angle])(c)
+        c = translate([timber_length, 0, 0])(c)
+    elif direction == 4: # as 1
+        c = rotate([angle, 0, 0])(c)
+        c = translate([0, timber_length, 0])(c)
+    elif direction == 5:
+        c = rotate([angle, 0, 0])(c)
+        c = translate([0,0,timber_length])(c)
+    elif direction == 6:
+        c = rotate([0, angle, 0])(c)
+        c = translate([timber_length, 0, 0])(c)
+    return t - c
+ 
 def timber_square(length=1000, width=1000, direction=1, join="thick"):
     #   
     #   144442
@@ -308,6 +333,8 @@ def slide():
     platform = mdf_sheet(alcove_length, slide_platform_width, direction=1)
     platform = up(top_platform_height)(platform)
     s = mdf_sheet(slide_width, top_platform_height*1.4, direction=1)
+    s = s + up(mdf_thickness)(timber(top_platform_height*1.4,  3))
+    s = s + forward(slide_platform_width-timber_width)(up(mdf_thickness)(timber(top_platform_height*1.4,  3)))
     s = rotate([0,45,0])(s)
     s = right(slide_platform_width-timber_thickness)(s)
     s = up(top_platform_height+(mdf_thickness+timber_width)*1.4)(s)
@@ -320,8 +347,8 @@ def frame_slide():
     parts.name="Frame Slide"
     # Wall peice
     parts.name="Frame Slide - wall connector"
-    f = f + up(top_platform_height/2)( timber(slide_platform_width*2,  3) )
-    f = f + up(top_platform_height/2)(forward(timber_width)(timber(alcove_length - timber_width,  1) ))
+    f = f + up(top_platform_height/2.0)( timber(slide_platform_width,  3) )
+    f = f + up(top_platform_height/2.0)(forward(timber_width)(timber(alcove_length - timber_width,  1) ))
     parts.name="Frame Slide - squares"
     f = f + right(timber_width)(forward(timber_width)(timber_square(alcove_length-timber_width-timber_width, slide_platform_width-timber_width, 1) ))
     f = f + up(top_platform_height-timber_thickness)(right(timber_width)(forward(timber_width)(timber_square(alcove_length-timber_width-timber_width, slide_platform_width-timber_width, 1) )))
@@ -329,6 +356,9 @@ def frame_slide():
     f = f + up(timber_thickness)(right(timber_width+chim_depth)(forward(timber_width)(timber_square(top_platform_height-timber_thickness*2, slide_platform_width-timber_width-chim_depth, 4) )))
     f = f + right(timber_width+chim_depth)(forward(-timber_width+alcove_length)(timber_square(top_platform_height, slide_platform_width-timber_width-chim_depth, 4) ))
     f = f + up(timber_thickness)(right(timber_width)(forward(timber_width)(timber_square(top_platform_height-timber_thickness-timber_thickness, alcove_length-timber_width-timber_width, 3) )))
+
+
+#    f = f + up(3000)(timber_angle_cut(1000, 45, 2))
 
     return f
 
