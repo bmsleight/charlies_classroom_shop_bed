@@ -66,6 +66,13 @@ room_length = room_length_bed_section + chim_length + alcove_length
 room_width = 3500
 room_door = 840 
 
+stairs_w_1 = 300
+stairs_w_2 = 600
+stairs_w_3 = 900
+
+stairs_h_1 = 1200
+stairs_h_2 = 800
+stairs_h_3 = 400
 
 
 # Using the corner where the chimeny start to jut out at 0,0
@@ -310,22 +317,44 @@ def bottom_platform():
 
 def stairs():
     parts.name="Stairs"
-    s = mdf_sheet(chim_length, 300, direction=1) 
-    s = forward(alcove_length)(s)
-    s = up(1200)(s)
+    s = mdf_sheet(chim_length-mdf_thickness, stairs_w_1, direction=1) 
+    s = forward(alcove_length+mdf_thickness)(s)
+    s = up(stairs_h_1)(s)
     s = right(chim_depth)(s)
-    stwo = mdf_sheet(chim_length, 600, direction=1) 
-    stwo = forward(alcove_length)(stwo)
-    stwo = up(800)(stwo)
+    stwo = mdf_sheet(chim_length-mdf_thickness, stairs_w_2, direction=1) 
+    stwo = forward(alcove_length+mdf_thickness)(stwo)
+    stwo = up(stairs_h_2)(stwo)
     stwo = right(chim_depth)(stwo)
-    sthree = mdf_sheet(chim_length, 900, direction=1) 
-    sthree = forward(alcove_length)(sthree)
-    sthree = up(400)(sthree)
+    sthree = mdf_sheet(chim_length-mdf_thickness, stairs_w_3, direction=1) 
+    sthree = forward(alcove_length+mdf_thickness)(sthree)
+    sthree = up(stairs_h_3)(sthree)
     sthree = right(chim_depth)(sthree)
-    panel = mdf_sheet(top_platform_height+mdf_thickness, 900, direction=2) 
+    panel = mdf_sheet(top_platform_height+mdf_thickness, stairs_w_3, direction=2) 
     panel = right(chim_depth)(panel)
     side_panel = forward(alcove_length+chim_length)(panel) + forward(alcove_length)(panel)
     return s + stwo + sthree + side_panel
+
+def frame_stairs():
+    parts.name="Frame Stairs"
+    f1 = alcove_length+mdf_thickness
+    f2 = alcove_length+chim_length+mdf_thickness*2-timber_thickness
+    r = chim_depth
+
+    step3 = forward(f1)(timber_square(stairs_h_3, stairs_w_3, 4))
+    step3 = step3 + forward(f2)(timber_square(stairs_h_3, stairs_w_3, 4))
+    step3 = right(r)(step3)
+    step2 = forward(f1)(timber_square(stairs_h_2-stairs_h_3-mdf_thickness, stairs_w_2, 4))
+    step2 = step2 + forward(f2)(timber_square(stairs_h_2-stairs_h_3-mdf_thickness, stairs_w_2, 4))
+    step2 = right(r)(step2)
+    step2 = up(stairs_h_2-stairs_h_3+mdf_thickness)(step2)
+    step1 = forward(f1)(timber_square(stairs_h_1-stairs_h_2-mdf_thickness, stairs_w_1, 4))
+    step1 = step1 + forward(f2)(timber_square(stairs_h_1-stairs_h_2-mdf_thickness, stairs_w_1, 4))
+    step1 = right(r)(step1)
+    step1 = up(stairs_h_2+mdf_thickness)(step1)
+
+    # timber_square(top_platform_height-timber_thickness-timber_thickness, alcove_length-timber_width-timber_width, 3)
+    return step3 + step2 + step1
+
 
 
 def slide():
@@ -351,11 +380,24 @@ def frame_slide():
     slide_cross_beam = slide_platform_width+top_platform_height/2-timber_thickness+mdf_thickness
     support_height = top_platform_height/2 + timber_thickness + timber_width
     f = f + up(top_platform_height/2.0)( timber(slide_cross_beam,  3) )
-    f = f + right(chim_depth)(forward(alcove_length-timber_width-timber_width)(up(top_platform_height/2.0)( timber(slide_cross_beam-chim_depth,  3) )))
+    f = f + right(chim_depth+timber_width)(forward(alcove_length-timber_width-timber_width)(up(top_platform_height/2.0)( timber(slide_cross_beam-chim_depth-timber_width,  3) )))
     parts.name="Frame Slide - wall connector, slide 45"
     f = f + forward(timber_width)(right(slide_cross_beam-timber_width)(timber_angle_cut(support_height, 45, 2)))
     f = f + forward(alcove_length-timber_width-timber_width-timber_thickness)(right(slide_cross_beam-timber_width)(timber_angle_cut(support_height, 45, 2)))
     f = f + forward(timber_width+timber_thickness)(right(slide_cross_beam-timber_width)(timber(alcove_length-timber_width-timber_width*2-timber_thickness*2,1)))
+    parts.name="Frame Slide - bottom of slide"
+    f = f + forward(timber_width)(right(slide_cross_beam+top_platform_height/2.0-timber_thickness)(timber_angle_cut(timber_thickness*2, 45, 2)))
+    f = f + forward(alcove_length-timber_width-timber_width-timber_thickness)(right(slide_cross_beam+top_platform_height/2.0-timber_thickness)(timber_angle_cut(timber_thickness*2, 45, 2)))
+    f = f + forward((alcove_length-timber_width-timber_width-timber_thickness)/2)(right(slide_cross_beam+top_platform_height/2.0-timber_thickness)(timber_angle_cut(timber_thickness*2, 45, 2)))
+
+#    f = f + forward(timber_width+timber_thickness)(right(slide_cross_beam+top_platform_height/2.0-timber_thickness)(timber(alcove_length-timber_width-timber_width*2-timber_thickness*2,1)))
+
+    parts.name="Frame Slide - top of slide"
+    f = f + forward(0)(right(slide_platform_width-timber_thickness)(up(top_platform_height+mdf_thickness)(timber_angle_cut(timber_thickness-mdf_thickness/3, 45, 2))))
+    f = f + forward(alcove_length-timber_thickness)(right(slide_platform_width-timber_thickness)(up(top_platform_height+mdf_thickness)(timber_angle_cut(timber_thickness-mdf_thickness/3, 45, 2))))
+    f = f + forward((alcove_length-timber_thickness)/2)(right(slide_platform_width-timber_thickness)(up(top_platform_height+mdf_thickness)(timber_angle_cut(timber_thickness-mdf_thickness/3, 45, 2))))
+
+
     parts.name="Frame Slide - squares"
     f = f + right(timber_width)(forward(timber_width)(timber_square(alcove_length-timber_width-timber_width, slide_platform_width-timber_width, 1) ))
     f = f + up(top_platform_height-timber_thickness)(right(timber_width)(forward(timber_width)(timber_square(alcove_length-timber_width-timber_width, slide_platform_width-timber_width, 1) )))
@@ -413,7 +455,7 @@ if __name__ == '__main__':
 #    a = a + forward(100)(timber(1000, 3))
 
 
-    a = a + frame_slide()
+    a = a + frame_slide() + frame_stairs()
     a = a + matress_top() + matress_bottom() + front_sheet() + top_platform() + bottom_platform()
     a = a + stairs() + slide()
 
