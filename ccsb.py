@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-#   signstl - generate an stl file based upon input usign OpenScad. 
+#   ccsb - generate an Bed for Charlie file based upon input usign OpenScad. 
 #   Copyright (C) Brendan M. Sleight, et al. <bms.stl#barwap.com>
 #
 #   This program is free software: you can redistribute it and/or modify
@@ -32,6 +32,7 @@ import os, sys, re, argparse
 matress_length = 1900
 matress_width = 900
 matress_thickness = 170
+matress_fold_depth = 250
 
 #from chiney
 room_length_bed_section = 2222
@@ -245,7 +246,7 @@ def matress_top():
 
 def matress_bottom():
     matress = cube([matress_width, matress_length, matress_thickness])
-    matress = up(bottom_platform_height)(forward(room_length-matress_length)(matress))
+    matress = right(250)(up(bottom_platform_height)(forward(room_length-matress_length-200)(matress)))
     return color(Magenta)(matress)
 
 
@@ -299,7 +300,25 @@ def front_sheet():
 #    fs = forward(alcove_length+chim_length)(fs)
 #    fs = right(top_platform_width)(fs)
     fs = b1 + b2 + b3 + b4 + b5 +b6 + b7
-    return fs
+
+    parts.name="Bed Frames"
+    f = union()
+    b5_x = tw/2.0 - da
+    f = f + up(bottom_platform_height-timber_thickness-mdf_thickness)(forward(room_length-timber_width)(timber(top_platform_width,  3) ))
+    f = f + up(bottom_platform_height-timber_thickness-mdf_thickness)(forward(bed_forward)(timber(room_length_bed_section-timber_width,  1) ))
+    f = f + right(timber_width)(up(bottom_platform_height-timber_thickness-mdf_thickness)(forward(bed_forward+timber_thickness)(timber(room_length_bed_section-timber_width-+timber_thickness*2,  1) )))
+    f = f + right(timber_width)(forward(bed_forward)(timber_square(top_platform_height, room_length_bed_section-timber_width, 3)))
+
+    f = f + up(bottom_platform_height-mdf_thickness)(forward(bed_forward+room_length_bed_section/2-timber_width)(timber(top_platform_height-bottom_platform_height+mdf_thickness,  2) ))
+    f = f + right(timber_width*2)(forward(bed_forward+da+timber_width)(timber_square(bottom_platform_height-mdf_thickness, matress_fold_depth+timber_thickness, 4)))
+    f = f + right(timber_width*2)(forward(bed_forward+da-timber_width*2+b5_x)(timber_square(bottom_platform_height-mdf_thickness, matress_fold_depth+timber_thickness, 4)))
+
+
+#b5_x
+
+#matress_fold_depth
+
+    return fs + f
 
 def top_platform():
     parts.name="Top Platform"
@@ -412,8 +431,7 @@ def frame_slide():
     return f
 
 
-def frames():
-    return frame_slide()
+
 
 
 if __name__ == '__main__':    
@@ -456,7 +474,8 @@ if __name__ == '__main__':
 
 
     a = a + frame_slide() + frame_stairs()
-    a = a + matress_top() + matress_bottom() + front_sheet() + top_platform() + bottom_platform()
+#    a = a + matress_top() + matress_bottom() + front_sheet() + top_platform() + bottom_platform()
+    a = a + matress_top() + matress_bottom() + front_sheet() + top_platform() 
     a = a + stairs() + slide()
 
 
