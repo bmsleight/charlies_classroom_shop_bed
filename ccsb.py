@@ -81,6 +81,7 @@ stairs_h_3 = 400
 
 #To Have Marks 
 MARK = False
+#MARK = True
 
 class Parts(object):
     def __init__(self):
@@ -243,12 +244,11 @@ def matress_top():
     matress = up(top_platform_height)(forward(room_length-matress_length)(matress))
     return color(Magenta)(matress)
 
-
 def matress_bottom():
     matress = cube([matress_width, matress_length, matress_thickness])
     matress = right(250)(up(bottom_platform_height)(forward(room_length-matress_length-200)(matress)))
-    return color(Magenta)(matress)
-
+#    return color(Magenta)(matress)
+    return union()
 
 def front_sheet():
     parts.name="Front Sheet"
@@ -301,24 +301,46 @@ def front_sheet():
 #    fs = right(top_platform_width)(fs)
     fs = b1 + b2 + b3 + b4 + b5 +b6 + b7
 
-    parts.name="Bed Frames"
+    parts.name="Bed Frames - near wall"
     f = union()
-    b5_x = tw/2.0 - da
+    b5_x = tw/2.0 - da 
     f = f + up(bottom_platform_height-timber_thickness-mdf_thickness)(forward(room_length-timber_width)(timber(top_platform_width,  3) ))
     f = f + up(bottom_platform_height-timber_thickness-mdf_thickness)(forward(bed_forward)(timber(room_length_bed_section-timber_width,  1) ))
     f = f + right(timber_width)(up(bottom_platform_height-timber_thickness-mdf_thickness)(forward(bed_forward+timber_thickness)(timber(room_length_bed_section-timber_width-+timber_thickness*2,  1) )))
-    f = f + right(timber_width)(forward(bed_forward)(timber_square(top_platform_height, room_length_bed_section-timber_width, 3)))
+    f = f + right(timber_width)(forward(bed_forward+timber_width)(timber_square(top_platform_height-timber_thickness, room_length_bed_section-timber_width*2, 3)))
 
     f = f + up(bottom_platform_height-mdf_thickness)(forward(bed_forward+room_length_bed_section/2-timber_width)(timber(top_platform_height-bottom_platform_height+mdf_thickness,  2) ))
-    f = f + right(timber_width*2)(forward(bed_forward+da+timber_width)(timber_square(bottom_platform_height-mdf_thickness, matress_fold_depth+timber_thickness, 4)))
-    f = f + right(timber_width*2)(forward(bed_forward+da-timber_width*2+b5_x)(timber_square(bottom_platform_height-mdf_thickness, matress_fold_depth+timber_thickness, 4)))
+    f = f + right(timber_width*2)(forward(bed_forward+da+timber_thickness)(timber_square(bottom_platform_height-mdf_thickness, matress_fold_depth+timber_thickness, 4)))
+    f = f + right(timber_width*2)(forward(bed_forward+da+b5_x-timber_thickness-timber_width)(timber_square(bottom_platform_height-mdf_thickness, matress_fold_depth+timber_thickness, 4)))
+    f = f + right(timber_width*2)(forward(bed_forward+timber_thickness+(tw-(tw/2.0)+da))(timber_square(bottom_platform_height-mdf_thickness, matress_fold_depth+timber_thickness, 4)))
+    parts.name="Bed Frames - end of bed"
+    f = f + right(top_platform_width/2)(forward(bed_forward+mdf_thickness)(timber_square(bottom_platform_height, matress_fold_depth+timber_thickness, 4)))
+    parts.name="Bed Frames - away wall"
+    f = f + right(top_platform_width-timber_width)(forward(bed_forward+da)(timber_square(top_platform_height-timber_thickness, b5_x, 3)))
+    f = f + up(bottom_platform_height-timber_thickness-mdf_thickness)(right(top_platform_width-timber_width)(forward(bed_forward+da+timber_thickness)(timber(b5_x-timber_thickness*2,  1) )))
+    f = f + right(top_platform_width-timber_width)(forward(bed_forward+(tw-(tw/2.0)+da))(timber_square(top_platform_height-timber_thickness, b5_x-timber_width, 3)))
+    f = f + up(bottom_platform_height-timber_thickness-mdf_thickness)(right(top_platform_width-timber_width)(forward(bed_forward+(tw-(tw/2.0)+da)+timber_thickness)(timber(b5_x-timber_thickness*2-timber_width,  1) )))
 
+    parts.name="Bed platforms - near wall"
+    bp1 = mdf_sheet(room_length_bed_section, matress_fold_depth, direction=1) 
+    bp1 = right(timber_width)(up(bottom_platform_height-mdf_thickness)(forward(bed_forward)(bp1)))
+    bp2 = mdf_sheet(room_length_bed_section, matress_fold_depth, direction=1) 
+    bp2 = right(timber_width)(up(bottom_platform_height)(forward(bed_forward)(bp2)))
+    parts.name="Bed platforms - tables"
+    bp3 = mdf_sheet(b5_x-timber_thickness*2, top_platform_width-matress_fold_depth-timber_width, direction=1) 
+    bp3 = right(timber_width+matress_fold_depth)(up(bottom_platform_height-mdf_thickness)(forward(bed_forward+da+timber_thickness)(bp3)))
+    bp4 = mdf_sheet(b5_x-timber_thickness, top_platform_width-matress_fold_depth-timber_width, direction=1) 
+    bp4 = right(timber_width+matress_fold_depth)(up(bottom_platform_height-mdf_thickness)(forward(bed_forward+timber_thickness+(tw-(tw/2.0)+da))(bp4)))
+
+#    f = f + right(timber_width*2)(forward(bed_forward+timber_width+(tw-(tw/2.0)+da))(timber_square(bottom_platform_height-mdf_thickness, matress_fold_depth+timber_thickness, 4)))
+
+    bp = bp1 + bp2 + bp3 + bp4
 
 #b5_x
 
 #matress_fold_depth
 
-    return fs + f
+    return fs + f + bp
 
 def top_platform():
     parts.name="Top Platform"
