@@ -223,8 +223,15 @@ def walls():
     # floor (not technically a wall)
     walls = down(100)(cube([room_width, room_length,100]))
     # Door
-    walls = walls + right(room_width-room_door/1.4)(forward(room_door*0.4-100)(rotate([0,0,45])(cube([room_door, 100,wall_height]))))
-    walls = walls + right(room_width-room_door)(forward(room_door)(rotate([0,0,0])(cube([room_door, 100,wall_height]))))
+    door = cylinder(room_door, 2000)
+    door = door - down(50)(forward(-room_door)(cube([room_door*2, room_door*2, 3000])))
+    door = door - down(50)(right(-room_door)(cube([room_door*2, room_door*2, 3000])))
+
+#    door = right(room_width-room_door/2)(forward(0)(door))
+    door = right(room_width)(forward(room_door)(door))
+
+#    walls = walls + right(room_width-room_door/1.4)(forward(room_door*0.4-100)(rotate([0,0,45])(cube([room_door, 100,wall_height]))))
+#    walls = walls + right(room_width-room_door)(forward(room_door)(rotate([0,0,0])(cube([room_door, 100,wall_height]))))
 
     # Back wall
     walls = walls + left(100)(cube([100, room_length, wall_height]))
@@ -236,19 +243,23 @@ def walls():
     # End wall by window
     walls = walls + forward(room_length)(cube([1050,100,wall_height]))
 
-    walls = color(Transparent)(walls)
+    walls = color(Transparent)(walls + door)
     return walls
 
 def matress_top():
     matress = cube([matress_width, matress_length, matress_thickness])
-    matress = up(top_platform_height)(forward(room_length-matress_length)(matress))
+    matress = up(top_platform_height+mdf_thickness)(forward(room_length-matress_length)(matress))
     return color(Magenta)(matress)
 
 def matress_bottom():
-    matress = cube([matress_width, matress_length, matress_thickness])
-    matress = right(250)(up(bottom_platform_height)(forward(room_length-matress_length-200)(matress)))
-#    return color(Magenta)(matress)
-    return union()
+#    matress = cube([matress_width, matress_length, matress_thickness])
+#    matress = right(250)(up(bottom_platform_height+mdf_thickness)(forward(room_length-matress_length-200)(matress)))
+
+    matress = cube([matress_thickness, matress_length, matress_width])
+    matress = right(85)(up(bottom_platform_height+mdf_thickness)(forward(room_length-matress_length-200)(matress)))
+
+
+    return color(Magenta)(matress)
 
 def front_sheet():
     parts.name="Front Sheet"
@@ -320,21 +331,34 @@ def front_sheet():
     f = f + up(bottom_platform_height-timber_thickness-mdf_thickness)(right(top_platform_width-timber_width)(forward(bed_forward+da+timber_thickness)(timber(b5_x-timber_thickness*2,  1) )))
     f = f + right(top_platform_width-timber_width)(forward(bed_forward+(tw-(tw/2.0)+da))(timber_square(top_platform_height-timber_thickness, b5_x-timber_width, 3)))
     f = f + up(bottom_platform_height-timber_thickness-mdf_thickness)(right(top_platform_width-timber_width)(forward(bed_forward+(tw-(tw/2.0)+da)+timber_thickness)(timber(b5_x-timber_thickness*2-timber_width,  1) )))
+    parts.name="Bed Frames - top"
+
+    f = f + up(top_platform_height-timber_thickness)(right(timber_width)(forward(bed_forward+timber_width)(timber_square(room_length_bed_section-timber_width*2, top_platform_width-timber_width, 1) )))
+
 
     parts.name="Bed platforms - near wall"
     bp1 = mdf_sheet(room_length_bed_section, matress_fold_depth, direction=1) 
     bp1 = right(timber_width)(up(bottom_platform_height-mdf_thickness)(forward(bed_forward)(bp1)))
     bp2 = mdf_sheet(room_length_bed_section, matress_fold_depth, direction=1) 
     bp2 = right(timber_width)(up(bottom_platform_height)(forward(bed_forward)(bp2)))
+
     parts.name="Bed platforms - tables"
     bp3 = mdf_sheet(b5_x-timber_thickness*2, top_platform_width-matress_fold_depth-timber_width, direction=1) 
     bp3 = right(timber_width+matress_fold_depth)(up(bottom_platform_height-mdf_thickness)(forward(bed_forward+da+timber_thickness)(bp3)))
     bp4 = mdf_sheet(b5_x-timber_thickness, top_platform_width-matress_fold_depth-timber_width, direction=1) 
     bp4 = right(timber_width+matress_fold_depth)(up(bottom_platform_height-mdf_thickness)(forward(bed_forward+timber_thickness+(tw-(tw/2.0)+da))(bp4)))
 
+    parts.name="Bed platforms - the"
+
+    # Direction 1 is down, 4 is up (folded)
+    bp5 = mdf_sheet(room_length_bed_section, top_platform_width-matress_fold_depth-timber_width-timber_width, direction=4) 
+    bp5 = right(timber_width+matress_fold_depth)(up(bottom_platform_height)(forward(bed_forward)(bp5)))
+
+    
+
 #    f = f + right(timber_width*2)(forward(bed_forward+timber_width+(tw-(tw/2.0)+da))(timber_square(bottom_platform_height-mdf_thickness, matress_fold_depth+timber_thickness, 4)))
 
-    bp = bp1 + bp2 + bp3 + bp4
+    bp = bp1 + bp2 + bp3 + bp4 + bp5
 
 #b5_x
 
@@ -372,7 +396,9 @@ def stairs():
     sthree = right(chim_depth)(sthree)
     panel = mdf_sheet(top_platform_height+mdf_thickness, stairs_w_3, direction=2) 
     panel = right(chim_depth)(panel)
-    side_panel = forward(alcove_length+chim_length)(panel) + forward(alcove_length)(panel)
+    panel2 = mdf_sheet(top_platform_height, stairs_w_3, direction=2) 
+    panel2 = right(chim_depth)(panel2)
+    side_panel = forward(alcove_length+chim_length)(panel2) + forward(alcove_length)(panel)
     return s + stwo + sthree + side_panel
 
 def frame_stairs():
@@ -508,4 +534,49 @@ if __name__ == '__main__':
     scad_render_to_file( a, options.openscad, include_orig_code=True, file_header=fn)
 
 
+'''
+}
+
+module video()
+{
+    if ($t < (1/8))
+        {
+        rotate([0, 0, $t*360*8]) shift_static();
+        }
+    if (($t > (1/8)) && ($t < (2/8)) )
+        {
+        rotate([0, $t*360*8, 0]) shift_static();
+        }
+    if (($t > (2/8)) && ($t < (3/8)) )
+        {
+        rotate([$t*360*8, 0, 0]) shift_static();
+        }
+
+    if (($t > (3/8)) && ($t < (4/8)) )
+        {
+        rotate([0, 0, ($t*360*8/2)+180]) shift_static();
+        }
+
+    if (($t > (4/8)) && ($t < (5/8)) )
+        {
+        rotate([0, $t*360*8, 180]) shift_static();
+        }
+    if (($t > (5/8)) && ($t < (6/8)) )
+        {
+        rotate([$t*360*8, 0, 180]) shift_static();
+        }
+    if (($t > (6/8)) && ($t < (7/8)) )
+        {
+        rotate([0, 0, ($t*360*8/2)+180]) shift_static();
+        }
+
+    if (($t > (7/8)) && ($t < (8/8)) )
+        {
+        shift_static();
+        }
+
+}
+
+video();
+'''
 
