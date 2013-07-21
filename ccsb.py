@@ -57,7 +57,7 @@ top_platform_width=matress_width + matress_thickness + (2*timber_thickness)
 #slide http://www.activegarden.co.uk/wmsimages/40779Slides.jpg
 
 slide_width = alcove_length
-#slide_width = 650
+#slide_width = 650 
 
 
 #slide_platform_width = 900 #top_platform_width - 
