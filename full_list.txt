@@ -1,0 +1,118 @@
+Length: 872, width: 38, thickness:63, Frame Slide - wall connector - 1 & 0b1
+Length: 1609, width: 38, thickness:63, Frame Slide - wall connector - 2 & 0b10
+Length: 1281, width: 38, thickness:63, Frame Slide - wall connector - 3 & 0b11
+Length: 851, width: 38, thickness:63, Frame Slide - wall connector, slide 45 - 4 & 0b100
+Length: 851, width: 38, thickness:63, Frame Slide - wall connector, slide 45 - 5 & 0b101
+Length: 670, width: 38, thickness:63, Frame Slide - wall connector, slide 45 - 6 & 0b110
+Length: 126, width: 38, thickness:63, Frame Slide - bottom of slide - 7 & 0b111
+Length: 126, width: 38, thickness:63, Frame Slide - bottom of slide - 8 & 0b1000
+Length: 126, width: 38, thickness:63, Frame Slide - bottom of slide - 9 & 0b1001
+Length: 59, width: 38, thickness:63, Frame Slide - top of slide - 10 & 0b1010
+Length: 59, width: 38, thickness:63, Frame Slide - top of slide - 11 & 0b1011
+Length: 59, width: 38, thickness:63, Frame Slide - top of slide - 12 & 0b1100
+Length: 834, width: 38, thickness:63, Frame Slide - squares - 13 & 0b1101
+Length: 834, width: 38, thickness:63, Frame Slide - squares - 14 & 0b1110
+Length: 796, width: 38, thickness:63, Frame Slide - squares - 15 & 0b1111
+Length: 796, width: 38, thickness:63, Frame Slide - squares - 16 & 0b10000
+Length: 834, width: 38, thickness:63, Frame Slide - squares - 17 & 0b10001
+Length: 834, width: 38, thickness:63, Frame Slide - squares - 18 & 0b10010
+Length: 796, width: 38, thickness:63, Frame Slide - squares - 19 & 0b10011
+Length: 796, width: 38, thickness:63, Frame Slide - squares - 20 & 0b10100
+Length: 1374, width: 38, thickness:63, Frame Slide - squares - 21 & 0b10101
+Length: 1374, width: 38, thickness:63, Frame Slide - squares - 22 & 0b10110
+Length: 456, width: 38, thickness:63, Frame Slide - squares - 23 & 0b10111
+Length: 456, width: 38, thickness:63, Frame Slide - squares - 24 & 0b11000
+Length: 1500, width: 38, thickness:63, Frame Slide - squares - 25 & 0b11001
+Length: 1500, width: 38, thickness:63, Frame Slide - squares - 26 & 0b11010
+Length: 456, width: 38, thickness:63, Frame Slide - squares - 27 & 0b11011
+Length: 456, width: 38, thickness:63, Frame Slide - squares - 28 & 0b11100
+Length: 1374, width: 38, thickness:63, Frame Slide - squares - 29 & 0b11101
+Length: 1374, width: 38, thickness:63, Frame Slide - squares - 30 & 0b11110
+Length: 708, width: 38, thickness:63, Frame Slide - squares - 31 & 0b11111
+Length: 708, width: 38, thickness:63, Frame Slide - squares - 32 & 0b100000
+Length: 400, width: 38, thickness:63, Frame Stairs - 33 & 0b100001
+Length: 400, width: 38, thickness:63, Frame Stairs - 34 & 0b100010
+Length: 774, width: 38, thickness:63, Frame Stairs - 35 & 0b100011
+Length: 774, width: 38, thickness:63, Frame Stairs - 36 & 0b100100
+Length: 400, width: 38, thickness:63, Frame Stairs - 37 & 0b100101
+Length: 400, width: 38, thickness:63, Frame Stairs - 38 & 0b100110
+Length: 774, width: 38, thickness:63, Frame Stairs - 39 & 0b100111
+Length: 774, width: 38, thickness:63, Frame Stairs - 40 & 0b101000
+Length: 388, width: 38, thickness:63, Frame Stairs - 41 & 0b101001
+Length: 388, width: 38, thickness:63, Frame Stairs - 42 & 0b101010
+Length: 474, width: 38, thickness:63, Frame Stairs - 43 & 0b101011
+Length: 474, width: 38, thickness:63, Frame Stairs - 44 & 0b101100
+Length: 388, width: 38, thickness:63, Frame Stairs - 45 & 0b101101
+Length: 388, width: 38, thickness:63, Frame Stairs - 46 & 0b101110
+Length: 474, width: 38, thickness:63, Frame Stairs - 47 & 0b101111
+Length: 474, width: 38, thickness:63, Frame Stairs - 48 & 0b110000
+Length: 388, width: 38, thickness:63, Frame Stairs - 49 & 0b110001
+Length: 388, width: 38, thickness:63, Frame Stairs - 50 & 0b110010
+Length: 174, width: 38, thickness:63, Frame Stairs - 51 & 0b110011
+Length: 174, width: 38, thickness:63, Frame Stairs - 52 & 0b110100
+Length: 388, width: 38, thickness:63, Frame Stairs - 53 & 0b110101
+Length: 388, width: 38, thickness:63, Frame Stairs - 54 & 0b110110
+Length: 174, width: 38, thickness:63, Frame Stairs - 55 & 0b110111
+Length: 174, width: 38, thickness:63, Frame Stairs - 56 & 0b111000
+Door is : 445.0 1190.0
+Window is : 340.0 1056.875
+Length: 667, width: 850, thickness:12, Front Sheet - 57 & 0b111001
+Length: 667, width: 850, thickness:12, Front Sheet - 58 & 0b111010
+Length: 139, width: 340, thickness:12, Front Sheet - 59 & 0b111011
+Length: 139, width: 340, thickness:12, Front Sheet - 60 & 0b111100
+Length: 139, width: 340, thickness:12, Front Sheet - 61 & 0b111101
+Length: 139, width: 340, thickness:12, Front Sheet - 62 & 0b111110
+Length: 2225, width: 510, thickness:12, Front Sheet - 63 & 0b111111
+Length: 1196, width: 38, thickness:63, Bed Frames - near wall - 64 & 0b1000000
+Length: 2187, width: 38, thickness:63, Bed Frames - near wall - 65 & 0b1000001
+Length: 2061, width: 38, thickness:63, Bed Frames - near wall - 66 & 0b1000010
+Length: 1437, width: 38, thickness:63, Bed Frames - near wall - 67 & 0b1000011
+Length: 1437, width: 38, thickness:63, Bed Frames - near wall - 68 & 0b1000100
+Length: 2023, width: 38, thickness:63, Bed Frames - near wall - 69 & 0b1000101
+Length: 2023, width: 38, thickness:63, Bed Frames - near wall - 70 & 0b1000110
+Length: 1012, width: 38, thickness:63, Bed Frames - near wall - 71 & 0b1000111
+Length: 488, width: 38, thickness:63, Bed Frames - near wall - 72 & 0b1001000
+Length: 488, width: 38, thickness:63, Bed Frames - near wall - 73 & 0b1001001
+Length: 187, width: 38, thickness:63, Bed Frames - near wall - 74 & 0b1001010
+Length: 187, width: 38, thickness:63, Bed Frames - near wall - 75 & 0b1001011
+Length: 488, width: 38, thickness:63, Bed Frames - near wall - 76 & 0b1001100
+Length: 488, width: 38, thickness:63, Bed Frames - near wall - 77 & 0b1001101
+Length: 187, width: 38, thickness:63, Bed Frames - near wall - 78 & 0b1001110
+Length: 187, width: 38, thickness:63, Bed Frames - near wall - 79 & 0b1001111
+Length: 488, width: 38, thickness:63, Bed Frames - near wall - 80 & 0b1010000
+Length: 488, width: 38, thickness:63, Bed Frames - near wall - 81 & 0b1010001
+Length: 187, width: 38, thickness:63, Bed Frames - near wall - 82 & 0b1010010
+Length: 187, width: 38, thickness:63, Bed Frames - near wall - 83 & 0b1010011
+Length: 500, width: 38, thickness:63, Bed Frames - end of bed - 84 & 0b1010100
+Length: 500, width: 38, thickness:63, Bed Frames - end of bed - 85 & 0b1010101
+Length: 187, width: 38, thickness:63, Bed Frames - end of bed - 86 & 0b1010110
+Length: 187, width: 38, thickness:63, Bed Frames - end of bed - 87 & 0b1010111
+Length: 1437, width: 38, thickness:63, Bed Frames - away wall - 88 & 0b1011000
+Length: 1437, width: 38, thickness:63, Bed Frames - away wall - 89 & 0b1011001
+Length: 541, width: 38, thickness:63, Bed Frames - away wall - 90 & 0b1011010
+Length: 541, width: 38, thickness:63, Bed Frames - away wall - 91 & 0b1011011
+Length: 541, width: 38, thickness:63, Bed Frames - away wall - 92 & 0b1011100
+Length: 1437, width: 38, thickness:63, Bed Frames - away wall - 93 & 0b1011101
+Length: 1437, width: 38, thickness:63, Bed Frames - away wall - 94 & 0b1011110
+Length: 503, width: 38, thickness:63, Bed Frames - away wall - 95 & 0b1011111
+Length: 503, width: 38, thickness:63, Bed Frames - away wall - 96 & 0b1100000
+Length: 503, width: 38, thickness:63, Bed Frames - away wall - 97 & 0b1100001
+Length: 2149, width: 38, thickness:63, Bed Frames - top - 98 & 0b1100010
+Length: 2149, width: 38, thickness:63, Bed Frames - top - 99 & 0b1100011
+Length: 1082, width: 38, thickness:63, Bed Frames - top - 100 & 0b1100100
+Length: 1082, width: 38, thickness:63, Bed Frames - top - 101 & 0b1100101
+Length: 2225, width: 250, thickness:12, Bed platforms - near wall - 102 & 0b1100110
+Length: 2225, width: 250, thickness:12, Bed platforms - near wall - 103 & 0b1100111
+Length: 541, width: 908, thickness:12, Bed platforms - tables - 104 & 0b1101000
+Length: 604, width: 908, thickness:12, Bed platforms - tables - 105 & 0b1101001
+Length: 2225, width: 870, thickness:12, Bed platforms - the - 106 & 0b1101010
+Length: 2225, width: 1196, thickness:12, Top Platform - 107 & 0b1101011
+Length: 470, width: 300, thickness:12, Stairs - 108 & 0b1101100
+Length: 470, width: 600, thickness:12, Stairs - 109 & 0b1101101
+Length: 470, width: 900, thickness:12, Stairs - 110 & 0b1101110
+Length: 1512, width: 900, thickness:12, Stairs - 111 & 0b1101111
+Length: 1500, width: 900, thickness:12, Stairs - 112 & 0b1110000
+Length: 910, width: 910, thickness:12, Slidieeeee - 113 & 0b1110001
+Length: 910, width: 2100, thickness:12, Slidieeeee - 114 & 0b1110010
+Length: 2100, width: 38, thickness:63, Slidieeeee - 115 & 0b1110011
+Length: 2100, width: 38, thickness:63, Slidieeeee - 116 & 0b1110100
