@@ -21,10 +21,13 @@ class Application():
         # Config
         self.config = ConfigParser.ConfigParser()
         self.config.read("cards.ini")
-        self.open =  datetime.strptime(self.config.get("General", "open"), "%H:%M")
-        self.close =  datetime.strptime(self.config.get("General", "close"), "%H:%M")
+        self.open =  datetime.strptime(self.config.get("General", "open"), "%H:%M").time()
+        self.close =  datetime.strptime(self.config.get("General", "close"), "%H:%M").time()
+        self.goodnightcount = 0
+        self.goodnight = self.config.get("General", "goodnight")
+        self.reallygoodnight = self.config.get("General", "reallygoodnight")
         self.salute =  self.config.get("General", "salute")
-        print self.open, self.close, self.salute
+#        print self.open, self.close, self.salute
         self.cards = []
         for section in self.config.sections():
             if section == "General":
@@ -41,7 +44,7 @@ class Application():
         self.connect_signals()
         
         self.window.show_all()
-        self.window.fullscreen()
+#        self.window.fullscreen()
         gtk.main()
     
     
@@ -55,9 +58,11 @@ class Application():
         self.image.set_from_pixbuf(scaled_buf)
         self.text = gtk.Label()
         self.text.set_markup('<span size="x-large" weight="bold">Welcome to \nCharlie\'s Classroom Shop Bed</span>')
+        self.text.set_width_chars(40)
+        self.text.set_line_wrap(True)
         self.hbox_1 = gtk.HBox(spacing=10)
         self.hbox_1.pack_start(self.image)
-        self.hbox_1.pack_start(self.text)
+        self.hbox_1.pack_start(self.text, expand=False)
 
         self.label = gtk.Label("Please scan your oyster")
         self.entry = gtk.Entry()
@@ -81,36 +86,51 @@ class Application():
         self.entry.connect("activate", self.callback_scan)    
 
     def flite(self, text):
-        text = text.replace('?', '\n')
-        text = text.replace('.', '\n')
         for t in text.split("\n"):
             if t <> "":
                 s = subprocess.call(["flite", "--setf", "duration_stretch=1.25", "-voice", "rms", t])
-            print t
-            time.sleep(0.75)
+            time.sleep(0.5)
 
     def callback_scan(self, widget, callback_data=None):
         scan = self.entry.get_text()
         self.entry.set_text("")
-        if scan not in self.cards:
-            scan = "Notlisted"
-        actions =  self.config.get(scan, "actions")
-        text = self.config.get(scan, "name") + " \n" + self.config.get(scan, "extra")
-        if "access" in actions:
-            try:
-                pixbuf = gtk.gdk.pixbuf_new_from_file(self.config.get(scan, "photo"))
-                #get_height()
-                scaled_buf = pixbuf.scale_simple(320,320,gtk.gdk.INTERP_BILINEAR)
-                self.image.set_from_pixbuf(scaled_buf)
-            except:
-                pass
-            text = self.salute + " " + text
+        print "Scanned: ", scan
+        if self.open <= datetime.now().time() <= self.close:
+            if scan not in self.cards:
+                scan = "Notlisted"
+            actions =  self.config.get(scan, "actions")
+            text = self.config.get(scan, "name") + " \n" + self.config.get(scan, "extra")
+            if "access" in actions:
+                try:
+                    pixbuf = gtk.gdk.pixbuf_new_from_file(self.config.get(scan, "photo"))
+                    #get_height()
+                    scaled_buf = pixbuf.scale_simple(320,320,gtk.gdk.INTERP_BILINEAR)
+                    self.image.set_from_pixbuf(scaled_buf)
+                except:
+                    pass
+                text = self.salute + " " + text
+            if "wikipedia" in actions:
+               text = text + '\n' + wikipedia.summary(wikipedia.random(pages=1), sentences=3)
+    
+            # Make carriage return for each sentence. To allow pause between each sentenance.
+            text = text.replace('?', '\n')
+            text = text.replace('.', '\n')
             self.text.set_markup('<span size="x-large" weight="bold">' + text + '</span>')
-        if "wikipedia" in actions:
-           text = text + '\n' + wikipedia.summary(wikipedia.random(pages=1), sentences=3)
-        while gtk.events_pending():
-           gtk.main_iteration(False)
-        self.flite(text)
+            while gtk.events_pending():
+               gtk.main_iteration(False)
+            time.sleep(1)
+            self.flite(text)
+            self.goodnightcount = 0
+        else:        
+            text = " " + datetime.now().time().strftime("%H:%M") + '\n'
+            if self.goodnightcount == 1:
+                text = text + self.reallygoodnight
+                self.flite(text)
+                self.goodnightcount = 2
+            if self.goodnightcount == 0:
+                text = text + self.goodnight
+                self.flite(text)
+                self.goodnightcount = 1
 
     
     def callback_exit(self, widget, callback_data=None):
