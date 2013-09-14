@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# sudo apt-get install python-gtk2 python-pip flite
+# sudo pip install wikipedia
+
 import pygtk
 pygtk.require('2.0')
 
